@@ -6,11 +6,8 @@ repos:
         entry: pylint
         language: system
         types: [python]
-        always_run: true
         args:
           [
-            "-rn",
-            "-sn",
             "--rcfile=.pylintrc",
             "--load-plugins=pylint.extensions.docparams"
           ]
