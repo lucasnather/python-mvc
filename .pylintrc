@@ -322,7 +322,7 @@ max-returns=6
 max-statements=50
 
 # Minimum number of public methods for a class (see R0903).
-min-public-methods=2
+min-public-methods=0
 
 
 [EXCEPTIONS]
@@ -417,7 +417,10 @@ disable=
       missing-module-docstring,
       missing-function-docstring,
       missing-final-newline,
-      unrecognized-option
+      unrecognized-option,
+      missing-class-docstring,
+      trailing-whitespace,
+     
 
       
 # Only show warnings with the listed confidence levels. Leave empty to show
