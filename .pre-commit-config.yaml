@@ -1,6 +1,6 @@
 repos:
-  -repo: local
-  hook:
+  - repo: local
+  hooks:
   - id: pylint
     name: pylint
     entry: pylint
