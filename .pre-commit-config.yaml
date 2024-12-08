@@ -1,16 +1,16 @@
 repos:
-- repo: local
-  hooks:
-    - id: pylint
-      name: pylint
-      entry: pylint
-      language: system
-      types: [python]
-      always_run: true
-      args:
-        [
-          "-rn",
-          "-sn",
-          "--rcfile=.pylintrc",
-          "--load-plugins=pylint.extensions.docparams"
-        ]
+  - repo: local
+    hooks:
+      - id: pylint
+        name: pylint
+        entry: pylint
+        language: system
+        types: [python]
+        always_run: true
+        args:
+          [
+            "-rn",
+            "-sn",
+            "--rcfile=.pylintrc",
+            "--load-plugins=pylint.extensions.docparams"
+          ]
