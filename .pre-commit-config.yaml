@@ -10,6 +10,6 @@ repos:
       [
         "-rn",
         "-sn",
-        "--rcfile=pylintrc",
-        "--load-plugins=pylinst.extensions.docparams"
+        "--rcfile=.pylintrc",
+        "--load-plugins=pylint.extensions.docparams"
       ]
