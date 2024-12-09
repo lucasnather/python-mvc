@@ -38,7 +38,7 @@ class NaturalPersonRepository(NaturalPersonInterface):
                 raise exception
         
 
-    def withdraw(self,natural_person_id,money) -> NaturalPerson:
+    def transaction(self,natural_person_id,money) -> NaturalPerson:
         with self.db_connection as database:
             try:
                 natural_person = database.session.query(NaturalPerson).filter(id=natural_person_id)
