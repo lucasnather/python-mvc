@@ -14,14 +14,4 @@ class JuridicalPerson(Base):
     balance = Column(Float)
 
     def __repr__(self) -> str:
-        to_dict = {
-            "revenue", self.revenue,
-            "age", self.age,
-            "dba", self.dba,
-            "phone", self.phone,
-            "corporative_email", self.corporative_email,
-            "category", self.category,
-            "balance", self.balance,
-        }
-
-        return str(to_dict)
+        return "Juridical Person Create"
