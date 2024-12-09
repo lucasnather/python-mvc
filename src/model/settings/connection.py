@@ -4,18 +4,18 @@ from sqlalchemy.orm import sessionmaker
 class DbConnection():
     
     def __init__(self) -> None:
-        self.connection_string = "sqlite:///storage.db"
-        self.engine = None
+        self.__connection_string = "sqlite:///storage.db"
+        self.__engine = None
         self.session = None
 
     def connection(self): 
-        self.engine = create_engine(self.connection_string)
+        self.__engine = create_engine(self.__connection_string)
 
-        return self.engine
+        return self.__engine
     
     def __enter__(self):
         session_maker = sessionmaker()
-        self.session = session_maker(bind=self.engine)
+        self.session = session_maker(bind=self.__engine)
 
         return self
 

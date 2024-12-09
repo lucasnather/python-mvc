@@ -9,8 +9,8 @@ class CreateNaturalPersonView(HandleRequests):
         self.create_natural_person_controller = create_natural_person_controller
 
     def handle(self, http_request: HttpRequest) -> HttpResponse:
-        body = http_request["body"]
+        body = http_request.body
 
         natural_person = self.create_natural_person_controller.create(body)
 
-        return HttpResponse(201, natural_person)
+        return HttpResponse(status_code=201, body=natural_person)

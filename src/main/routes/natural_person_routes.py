@@ -7,7 +7,7 @@ bp_natural_person = Blueprint("natural_person", __name__)
 @bp_natural_person.route("/api/natural-person/register", methods=["POST"])
 def create():
     try:
-        natural_person = request.json()
+        natural_person = request.json
         http_request = HttpRequest(body=natural_person)
         view = make_create_natural_person()
 

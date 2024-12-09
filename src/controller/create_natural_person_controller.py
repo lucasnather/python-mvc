@@ -64,7 +64,7 @@ class CreateNaturalPersonController(CreateNaturalPersonInterface):
         return False
 
     def __insert_into_database(self,monthly_income, age, fullname, phone, email, category, balance):
-        natural_person = self.natural_person_repository(
+        natural_person = self.natural_person_repository.create(
             monthly_income, age, fullname, phone, email, category, balance
         )
         return natural_person
