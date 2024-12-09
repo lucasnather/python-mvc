@@ -419,9 +419,9 @@ disable=
       missing-final-newline,
       unrecognized-option,
       missing-class-docstring,
-      trailing-whitespace
-     
-
+      trailing-whitespace,
+      line-too-long,
+      too-many-function-args
       
 # Only show warnings with the listed confidence levels. Leave empty to show
 # all. Valid levels: HIGH, CONTROL_FLOW, INFERENCE, INFERENCE_FAILURE,

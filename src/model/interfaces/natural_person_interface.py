@@ -1,4 +1,6 @@
 from abc import abstractmethod, ABC
+from typing import List
+from src.model.entities.natural_person import NaturalPerson
 
 class NaturalPersonInterface(ABC):
 
@@ -7,13 +9,13 @@ class NaturalPersonInterface(ABC):
         pass
 
     @abstractmethod
-    def list_persons(self) -> None:
+    def list_persons(self) -> List[NaturalPerson]:
         pass
 
     @abstractmethod
-    def list_person_by_id(self,person_id) -> None:
+    def list_person_by_id(self,person_id) -> NaturalPerson:
         pass
 
     @abstractmethod
-    def withdraw(self,person_id, another_person_id, balance ) -> None:
+    def transaction(self,natural_person_id,money) -> NaturalPerson:
         pass

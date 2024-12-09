@@ -23,4 +23,4 @@ class DbConnection():
         self.session.close()
 
 
-db = DbConnection()
+db_connection = DbConnection()
