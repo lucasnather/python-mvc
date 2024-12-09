@@ -9,12 +9,20 @@ class NaturalPersonRepository(NaturalPersonInterface):
         self.connection = connection
 
     
-    def create(self,monthly_income: float, age: int, fullname: str, phone: str, email: str, category: str, balance: float):
+    def create(self,monthly_income, age, fullname, phone, email, category, balance):
         with self.connection as database:
             try:
-                natural_person = NaturalPerson(monthly_income, age, fullname, phone, email, category, balance)
+                natural_person = NaturalPerson(
+                    monthly_income=monthly_income, 
+                    age=age, 
+                    fullname=fullname, 
+                    phone=phone, 
+                    email=email, 
+                    category=category, 
+                    balance=balance
+                    )
                 database.session.add(natural_person)
-                database.sesstion.commit()
+                database.session.commit()
 
             except Exception as exception:
                 database.session.rollback()

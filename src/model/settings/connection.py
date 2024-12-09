@@ -1,15 +1,17 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from src.model.settings.base import Base
 
 class DbConnection():
     
     def __init__(self) -> None:
-        self.__connection_string = "sqlite:///storage.db"
+        self.__connection_string = "sqlite:///database.db"
         self.__engine = None
         self.session = None
 
     def connection(self): 
-        self.__engine = create_engine(self.__connection_string)
+        self.__engine = create_engine(self.__connection_string, echo=True)
+        Base.metadata.create_all(self.__engine)
 
         return self.__engine
     
