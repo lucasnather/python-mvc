@@ -9,7 +9,7 @@ class DbConnection():
         self.session = None
 
     def connection(self): 
-        self.engine = create_engine(self.connection)
+        self.engine = create_engine(self.connection_string)
 
         return self.engine
     

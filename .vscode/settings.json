@@ -2,6 +2,6 @@
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
     "files.exclude": {
-       "**/__pychache__": true
+       "**/__pycache__": true
     }
 }
