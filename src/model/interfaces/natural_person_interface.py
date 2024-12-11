@@ -13,7 +13,7 @@ class NaturalPersonInterface(ABC):
         pass
 
     @abstractmethod
-    def list_person_by_id(self,person_id) -> NaturalPerson:
+    def list_person_by_id(self,natural_person_id) -> NaturalPerson:
         pass
 
     @abstractmethod

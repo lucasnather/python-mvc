@@ -6,17 +6,18 @@ class TransactionNaturalPersonController(TransactionNaturalPersonInterface):
     def __init__(self, natural_person_repository: NaturalPersonInterface) -> None:
         self.natural_person_repository = natural_person_repository
 
-    def transaction(self, natural_person, money) -> Dict: 
-        natural_person_id = natural_person["id"]
+    def transaction(self, natural_person_id, money) -> Dict: 
+
         balance = money["balance"]
 
         validate_id = self.__validation_id(natural_person_id)
         validate_balance = self.__validation_balance(balance)
 
-        natural_person = self.__find_person_by_id(validate_id)
-        new_balance = self.__calculate_transaction_balance(natural_person, validate_balance)
+        natural_person_actual_balance = self.__find_person_by_id(validate_id)
 
+        new_balance = self.__calculate_transaction_balance(natural_person_actual_balance, validate_balance)
         self.__transaction_database(validate_id, new_balance)
+        print("Balanço")
 
         formatted_response = self.__format_response(new_balance)
         
@@ -24,7 +25,7 @@ class TransactionNaturalPersonController(TransactionNaturalPersonInterface):
 
 
     def __validation_id(self, natural_person_id):
-        if isinstance(natural_person_id, int):
+        if not isinstance(natural_person_id, int):  
             raise Exception("Id Not Valid")
         
         return natural_person_id
@@ -35,12 +36,12 @@ class TransactionNaturalPersonController(TransactionNaturalPersonInterface):
         
         return balance
     
-    def __calculate_transaction_balance(self, natural_person, balance):
+    def __calculate_transaction_balance(self, actual_balance, balance):
 
-        if natural_person["balance"] < balance:
+        if actual_balance < balance:
             raise Exception("Money bigger than your balance")
 
-        new_balance = natural_person["balance"] - balance
+        new_balance = actual_balance - balance
 
         return new_balance
     
@@ -49,7 +50,7 @@ class TransactionNaturalPersonController(TransactionNaturalPersonInterface):
 
     def __find_person_by_id(self, natural_person_id):
         natural_person = self.natural_person_repository.list_person_by_id(natural_person_id)
-        return natural_person
+        return natural_person.balance
 
     def __format_response(self, balance):
         return {

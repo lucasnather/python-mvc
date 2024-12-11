@@ -23,7 +23,7 @@ def create():
         })
     
 @bp_natural_person.route("/api/natural/transaction/<int:natural_person_id>", methods=["PUT"])
-def transaction(natural_person_id: int):
+def transaction(natural_person_id):
     try:
         http_request = HttpRequest(body=request.json, param=natural_person_id)
         view = make_transaction_natural_person()
@@ -32,7 +32,7 @@ def transaction(natural_person_id: int):
 
         return jsonify(http_response.body), http_response.status_code
     except Exception as exception:
-        print(exception)
+        print("To nessa excecao", exception)
         return jsonify({
             "message": "Erro"
         })  

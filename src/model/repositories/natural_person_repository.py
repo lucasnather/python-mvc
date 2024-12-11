@@ -37,10 +37,10 @@ class NaturalPersonRepository(NaturalPersonInterface):
                 raise exception
         
 
-    def list_person_by_id(self,person_id) -> NaturalPerson:
+    def list_person_by_id(self,natural_person_id) -> NaturalPerson:
         with self.connection as database:
             try:
-                natural_person_by_id = database.session.query(NaturalPerson).filter(id=person_id)
+                natural_person_by_id = database.session.query(NaturalPerson).filter(NaturalPerson.id == natural_person_id).first()
                 return natural_person_by_id
             except Exception as exception:
                 raise exception
@@ -49,10 +49,10 @@ class NaturalPersonRepository(NaturalPersonInterface):
     def transaction(self,natural_person_id,money) -> NaturalPerson:
         with self.connection as database:
             try:
-                natural_person = database.session.query(NaturalPerson).filter(id=natural_person_id)
+                natural_person = database.session.query(NaturalPerson).filter(NaturalPerson.id == natural_person_id).first()
                 natural_person.balance = money
                 database.session.add(natural_person)
-                database.sesstion.commit()
+                database.session.commit()
                 return natural_person
             except Exception as exception:
                 database.session.rollback()
