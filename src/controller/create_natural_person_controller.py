@@ -2,6 +2,10 @@ import re
 from typing import Dict
 from src.controller.interface.create_natural_person_interface import CreateNaturalPersonInterface
 from src.model.interfaces.natural_person_interface import NaturalPersonInterface
+from src.errors_types.email_exception import EmailException
+from src.errors_types.phone_exception import PhoneException
+from src.errors_types.age_exception import AgeException
+from src.errors_types.balance_exception import BalanceException
 
 class CreateNaturalPersonController(CreateNaturalPersonInterface):
     def __init__(self, natural_person_repository: NaturalPersonInterface) -> None:
@@ -37,13 +41,13 @@ class CreateNaturalPersonController(CreateNaturalPersonInterface):
     
     def __validation__age(self, age) -> float:
         if age < 18:
-            raise Exception("Age Not Valid")
+            raise AgeException("Idade precisa ser maior ou igual a 18")
         
         return age
     
     def __validation__balance(self, balance) -> float:
         if balance <= 0:
-            raise Exception("Balance Not Valid")
+            raise BalanceException("Saldo enviado menor ou igual a 0s")
         
         return balance
     
@@ -51,17 +55,19 @@ class CreateNaturalPersonController(CreateNaturalPersonInterface):
     def __validation_email(self, email):
         email_regex = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[cC][oO][mM]$"
 
-        if re.match(email_regex, email):
-            return email
-        raise Exception("Email Not Valid")
+        if not re.match(email_regex, email):
+            raise EmailException("Email coorporativo não válido -> formato: nome@email.com")
+    
+        return email
     
     def __validation_phone(self, phone):
         phone_regex = r"^\+\d{11}$"
 
-        if re.match(phone_regex, phone):
-            return phone
+        if not re.match(phone_regex, phone):
+            raise PhoneException("Celular precisa estar nesse formato: +XXXXXXXXXX -> 11 números")
+           
+        return phone
         
-        raise Exception("Phone Not Valid")
 
     def __insert_into_database(self,monthly_income, age, fullname, phone, email, category, balance):
         self.natural_person_repository.create(

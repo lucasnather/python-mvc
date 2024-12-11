@@ -2,6 +2,9 @@ from typing import Dict
 import re
 from src.controller.interface.create_juridical_person_interface import CreateJuridicalPersonInterface
 from src.model.interfaces.juridical_person_interface import JuridicalPersonInterface
+from src.errors_types.age_exception import AgeException
+from src.errors_types.email_exception import EmailException
+from src.errors_types.phone_exception import PhoneException
 
 class CreateJuridicalPersonController(CreateJuridicalPersonInterface):
     def __init__(self, juridical_person_repository: JuridicalPersonInterface) -> None:
@@ -37,13 +40,13 @@ class CreateJuridicalPersonController(CreateJuridicalPersonInterface):
 
     def __validation__age(self, age) -> float:
         if age < 18:
-            raise Exception("Age Not Valid")
+            raise AgeException("Idade precisa ser maior ou igual a 18")
         
         return age
     
     def __validation__balance(self, balance) -> float:
         if balance <= 0:
-            raise Exception("Balance Not Valid")
+            raise BaseException("Saldo enviado igual ou menor que 0")
         
         return balance
     
@@ -53,7 +56,7 @@ class CreateJuridicalPersonController(CreateJuridicalPersonInterface):
 
         if re.match(corporative_email_regex, corporative_email):
             return corporative_email
-        raise Exception("Corporative Email Not Valid")
+        raise EmailException("Email coorporativo não válido -> formato: nome@email.com")
     
     def __validation_phone(self, phone):
 
@@ -62,7 +65,7 @@ class CreateJuridicalPersonController(CreateJuridicalPersonInterface):
         if re.match(phone_regex, phone):
             return phone
         
-        raise Exception("Phone Not Valid")
+        raise PhoneException("Celular precisa estar nesse formato: +XXXXXXXXXX -> 11 números")
     
     def __insert_into_database(self, revenue, age, dba, phone, corporative_email, category, balance):
         self.juridical_person_repository.create(

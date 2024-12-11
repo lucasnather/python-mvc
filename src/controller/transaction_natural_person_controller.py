@@ -1,6 +1,8 @@
 from typing import Dict
 from src.controller.interface.transaction_natural_person_interface import TransactionNaturalPersonInterface
 from src.model.interfaces.natural_person_interface import NaturalPersonInterface
+from src.errors_types.balance_exception import BalanceException
+from src.errors_types.invalid_id_exception import InvalidIdException
 
 class TransactionNaturalPersonController(TransactionNaturalPersonInterface):
     def __init__(self, natural_person_repository: NaturalPersonInterface) -> None:
@@ -25,23 +27,22 @@ class TransactionNaturalPersonController(TransactionNaturalPersonInterface):
 
     def __validation_id(self, natural_person_id):
         if not isinstance(natural_person_id, int):  
-            raise Exception("Id Not Valid")
+            raise InvalidIdException("Id precisar ser do tipo Inteiro")
         
         return natural_person_id
     
     def __validation_balance(self, balance):
         if balance <= 0:
-            raise Exception("Balance not Valid")
-        
+            raise BalanceException("Saldo enviado menor que 0")
         if balance > 4000:
-            raise Exception("Balance with more than 4000 Not Valid ")
-        
+            raise BalanceException("O saldo máximo para Pessoas Físicas é de R$ 4000,00")
+    
         return balance
     
     def __calculate_transaction_balance(self, actual_balance, balance):
 
         if actual_balance < balance:
-            raise Exception("Money bigger than your balance")
+            raise BalanceException("O dinheiro que você solicitou é maior que o saldo")
 
         new_balance = actual_balance - balance
 
@@ -54,7 +55,7 @@ class TransactionNaturalPersonController(TransactionNaturalPersonInterface):
         natural_person = self.natural_person_repository.list_person_by_id(natural_person_id)
 
         if natural_person.balance == 0:
-            raise Exception("Your balance is empty")
+            raise BalanceException("Seu saldo está vazio")
 
         return natural_person.balance
 

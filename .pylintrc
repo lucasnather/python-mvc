@@ -423,7 +423,8 @@ disable=
       line-too-long,
       too-many-function-args,
       broad-exception-raised,
-      broad-exception-caught
+      broad-exception-caught,
+      R0801
       
 # Only show warnings with the listed confidence levels. Leave empty to show
 # all. Valid levels: HIGH, CONTROL_FLOW, INFERENCE, INFERENCE_FAILURE,
