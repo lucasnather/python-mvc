@@ -8,6 +8,7 @@ bp_natural_person = Blueprint("natural_person", __name__)
 
 @bp_natural_person.route("/api/natural", methods=["POST"])
 def create():
+    print("rcebi")
     try:
         http_request = HttpRequest(body=request.json)
         view = make_create_natural_person()
@@ -18,9 +19,9 @@ def create():
 
         return jsonify(http_response.body), http_response.status_code
     except Exception as exception:
-        exception_handler = erro_handler(exception)
+        http_response = erro_handler(exception)
 
-        return jsonify(exception_handler)
+        return jsonify(http_response.body), http_response.status_code
     
 @bp_natural_person.route("/api/natural/transaction/<int:natural_person_id>", methods=["PUT"])
 def transaction(natural_person_id):
@@ -32,9 +33,9 @@ def transaction(natural_person_id):
 
         return jsonify(http_response.body), http_response.status_code
     except Exception as exception:
-        exception_handler = erro_handler(exception)
+        http_response = erro_handler(exception)
 
-        return jsonify(exception_handler) 
+        return jsonify(http_response.body), http_response.status_code 
 
        
    

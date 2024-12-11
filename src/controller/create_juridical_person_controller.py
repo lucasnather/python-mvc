@@ -5,6 +5,7 @@ from src.model.interfaces.juridical_person_interface import JuridicalPersonInter
 from src.errors_types.age_exception import AgeException
 from src.errors_types.email_exception import EmailException
 from src.errors_types.phone_exception import PhoneException
+from src.errors_types.balance_exception import BalanceException
 
 class CreateJuridicalPersonController(CreateJuridicalPersonInterface):
     def __init__(self, juridical_person_repository: JuridicalPersonInterface) -> None:
@@ -46,7 +47,7 @@ class CreateJuridicalPersonController(CreateJuridicalPersonInterface):
     
     def __validation__balance(self, balance) -> float:
         if balance <= 0:
-            raise BaseException("Saldo enviado igual ou menor que 0")
+            raise BalanceException("Saldo enviado igual ou menor que 0")
         
         return balance
     

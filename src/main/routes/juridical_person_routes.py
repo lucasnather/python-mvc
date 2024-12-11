@@ -17,6 +17,6 @@ def create():
 
         return jsonify(http_response.body), http_response.status_code
     except Exception as exception:
-        exception_handler = erro_handler(exception)
+        http_response = erro_handler(exception)
 
-        return jsonify(exception_handler)
+        return jsonify(http_response.body), http_response.status_code
