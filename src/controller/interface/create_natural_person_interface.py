@@ -6,3 +6,5 @@ class CreateNaturalPersonInterface(ABC):
     @abstractmethod
     def create(self,natural_person: Dict) -> Dict:
         pass
+
+   
