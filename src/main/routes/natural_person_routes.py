@@ -32,7 +32,7 @@ def transaction(natural_person_id):
 
         return jsonify(http_response.body), http_response.status_code
     except Exception as exception:
-        print("To nessa excecao", exception)
+        print(exception)
         return jsonify({
             "message": "Erro"
         })  

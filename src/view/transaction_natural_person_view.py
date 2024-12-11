@@ -11,6 +11,6 @@ class TransactionNaturalPersonView(HandleRequests):
         natural_person = http_request.param
         money = http_request.body
 
-        self.transaction_controller.transaction(natural_person, money)
+        body = self.transaction_controller.transaction(natural_person, money)
 
-        return HttpResponse(status_code=201, body=money)
+        return HttpResponse(status_code=201, body=body)

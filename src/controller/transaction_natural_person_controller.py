@@ -17,7 +17,6 @@ class TransactionNaturalPersonController(TransactionNaturalPersonInterface):
 
         new_balance = self.__calculate_transaction_balance(natural_person_actual_balance, validate_balance)
         self.__transaction_database(validate_id, new_balance)
-        print("Balanço")
 
         formatted_response = self.__format_response(new_balance)
         
@@ -33,6 +32,9 @@ class TransactionNaturalPersonController(TransactionNaturalPersonInterface):
     def __validation_balance(self, balance):
         if balance <= 0:
             raise Exception("Balance not Valid")
+        
+        if balance > 4000:
+            raise Exception("Balance with more than 4000 Not Valid ")
         
         return balance
     
@@ -50,6 +52,10 @@ class TransactionNaturalPersonController(TransactionNaturalPersonInterface):
 
     def __find_person_by_id(self, natural_person_id):
         natural_person = self.natural_person_repository.list_person_by_id(natural_person_id)
+
+        if natural_person.balance == 0:
+            raise Exception("Your balance is empty")
+
         return natural_person.balance
 
     def __format_response(self, balance):
